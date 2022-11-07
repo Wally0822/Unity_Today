@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -34,19 +35,29 @@ public class GameManager : MonoBehaviour
     float EscapeTime = 0;
     float bestTime = 0;
 
-    int totalItem;
+    public bool isGameOver = false;
+
+    public int totalItem;
     int Gotcha;
 
     // Update is called once per frame
     void Update()
     {
-        EscapeTime += Time.deltaTime;
+        if (!isGameOver)
+        { EscapeTime += Time.deltaTime; }
 
         PlayTime.text = (EscapeTime < 60) ? $"I'm alive! : {(int)EscapeTime % 60} Sec" : $"I'm alive! : {(int)EscapeTime / 60}Min : {(int)EscapeTime % 60} Sec";
 
         BestTime.text = (bestTime != 0) ? $"{(int)bestTime / 60} Min {(int)bestTime % 60} Sec" : "No one escaped!";
 
         itemScore.text = $"{Gotcha} / {totalItem}";
+
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("Test_ChrisP");
+        }
+
     }
 
     void Escaped()
@@ -64,7 +75,7 @@ public class GameManager : MonoBehaviour
 
     void GameOver()
     {
-
+        isGameOver = true;
 
 
     }

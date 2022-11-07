@@ -9,6 +9,7 @@ public class PlayerMove : MonoBehaviour
     Vector3 myRotation = Vector3.zero;
     float Speed = 15f;
 
+    GameManager GM;
 
     // Start is called before the first frame update
     void Start()
@@ -27,10 +28,6 @@ public class PlayerMove : MonoBehaviour
         //myRotation.y += moveforce.x * moveforce.z;
         myRotation.y += Input.GetAxis("Mouse X");
         myRigidbody.rotation = (Quaternion.Euler(myRotation));
-
-        
-        
-        
     }
         
 }
