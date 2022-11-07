@@ -85,9 +85,9 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetFloat("BestTime", bestTime);
 
             Debug.Log("you win!");
-            
-            win.gameObject.SetActive(true);
+
         }
+        win.gameObject.SetActive(true);
 
     }
 

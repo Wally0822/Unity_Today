@@ -20,8 +20,12 @@ public class PlayerController : MonoBehaviour
     bool isMoving = false;
     bool Die = false;
 
+    AudioClip getItem;
+    AudioSource myAudio;
+
     private void Awake()
     {
+        myAudio = GetComponent<AudioSource>();
         myRigidbody = GetComponent<Rigidbody>();
         myAnimator = GetComponent<Animator>();
     }
@@ -38,6 +42,10 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         if(collision.transform.tag == "Plane") canJump = false; //점프시작하면 재점프 불가능
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Item") myAudio.Play();
     }
     void Update()
     {

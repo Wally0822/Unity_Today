@@ -65,21 +65,19 @@ public class Enemy : MonoBehaviour
         {
             GameManager.Inst.SendMessage("GameOver");
             isFollow = true;
-            //Attack();
-            //enemySource.Play();
-            Debug.Log("Player!!!! got you ");
+            animator.SetBool("Attacks", true);
+            enemySource.Stop();
+            //Debug.Log("Player!!!! got you ");
 
         }
-        //if (other.tag == "Player")
-        //{
-        //}
+
     }
 
 
     private void OnTriggerExit(Collider other)
     {
         isFollow = false;
-        enemySource.Stop();
+        enemySource.Play();
 
     }
 
