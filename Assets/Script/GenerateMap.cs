@@ -67,7 +67,7 @@ public class GenerateMap : MonoBehaviour
                 {
                     //point = new Vector3(point.x, 0, point.z);
                     point.y = 0;
-                    //Instantiate(cube, point, Quaternion.identity, this.transform);
+                    Instantiate(cube, point, Quaternion.identity, this.transform);
                 }
                 else if (point.y <= 0.7) // itemMin <= itemMax && 
                 {

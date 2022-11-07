@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 04a72689c6f985647bc64911e3117c9d, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 6c154636a358e41b4bcc5d4158c4c529, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.5015748, g: 0.27015787, b: 0.21001217, a: 1}
+  m_IndirectSpecularColor: {r: 0.49285108, g: 0.21388903, b: 0.37817562, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -313,7 +313,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.5849056, g: 0.56491977, b: 0.51041293, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -487,6 +487,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ground
       objectReference: {fileID: 0}
+    - target: {fileID: 6788224655674125717, guid: 698327df72896114e9ba858aff98fd1a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 64d49a9c35ef4624d9be8c463babdf8d, type: 2}
     - target: {fileID: 6788224655674125719, guid: 698327df72896114e9ba858aff98fd1a, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -731,6 +735,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map
       objectReference: {fileID: 0}
+    - target: {fileID: 7456803925647356980, guid: 048e47cfa5e4e8648a1573657f40fe55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7456803925647356982, guid: 048e47cfa5e4e8648a1573657f40fe55, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -807,10 +815,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ground: {fileID: 6788224655674125715, guid: 698327df72896114e9ba858aff98fd1a, type: 3}
-  cube: {fileID: 7365196510038926945, guid: b450c6d473e9d0f409df1ea8c2614383, type: 3}
-  item: {fileID: 8772593160605895939, guid: 604dd2ac0a3212d4fab3f14b3f22a901, type: 3}
+  cube: {fileID: 9069115365609291303, guid: 60f79905accf3b24fa0114b941f1aac0, type: 3}
+  item: {fileID: 8402670969139712711, guid: 47e2ec970de68b247a3b28877d39f1da, type: 3}
   MapImage: {fileID: 2800000, guid: b3d2d9fef53af60459032b5a0ef9c2a7, type: 3}
-  resolution: 160
+  resolution: 120
   mapValue: 5
   itemMin: 0
   itemMax: 2000
