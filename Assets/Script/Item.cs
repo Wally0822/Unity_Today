@@ -19,7 +19,8 @@ public class Item : MonoBehaviour
         if(other.tag == "Player") // 플레이어와 아이템이 충돌 했을 때 UImanager로 센드메시지
         {
             //GAMEMANAGER.INST.
-            other.SendMessage("GetScore", SendMessageOptions.DontRequireReceiver);
+            GameManager.Inst.SendMessage("Score", SendMessageOptions.DontRequireReceiver);
+            this.gameObject.SetActive(false);
         }        
     }    
 }
