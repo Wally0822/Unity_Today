@@ -30,7 +30,7 @@ public class GenerateMap : MonoBehaviour
         Vector3 groundPos = new Vector3(80,0,80);
         // 이미지 없으면 return
         if (MapImage == null) return;
-        Instantiate(ground, groundPos, Quaternion.identity, this.transform.parent);
+        //Instantiate(ground, groundPos, Quaternion.identity, this.transform.parent);
 
     }
     private void Start()
@@ -49,7 +49,7 @@ public class GenerateMap : MonoBehaviour
         {
             for (int y = 0; y < resolution; y++)
             {
-                int rnd = Random.Range(0, 22);
+                int rnd = Random.Range(0, 15);
                 // 순서대로 값을 넣어줌
                 vtxIndex = x + y * resolution;
 
@@ -67,7 +67,7 @@ public class GenerateMap : MonoBehaviour
                 {
                     //point = new Vector3(point.x, 0, point.z);
                     point.y = 0;
-                    Instantiate(cube, point, Quaternion.identity, this.transform.parent);
+                    //Instantiate(cube, point, Quaternion.identity, this.transform);
                 }
                 else if (point.y <= 0.7) // itemMin <= itemMax && 
                 {
@@ -77,14 +77,13 @@ public class GenerateMap : MonoBehaviour
                         if (point.y > 0.7 && rnd== 0)
                         {
                             //point = new Vector3(point.x, 1, point.z);
-                            point.y = 1;
+                            point.y = 1.2f;
                             // 배열에 담은 아이템 하나씩 생성
                             Instantiate(item, point, Quaternion.identity);
-                            //itemMin++;
+                            itemMin++;
                         }
                         
                     }
-
                 }
 
                 // 아이템 일정 갯수 이상 먹으면 탈출구가 생김
@@ -95,6 +94,7 @@ public class GenerateMap : MonoBehaviour
             }
         }
 
+        GameManager.Inst.totalItem = itemMin;
         
     }
 
