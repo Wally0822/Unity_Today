@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 
 public class Enemy : MonoBehaviour
 {
@@ -18,6 +20,8 @@ public class Enemy : MonoBehaviour
     private AudioSource enemySource = null;
     public AudioClip workAudio = null;
 
+    NavMeshAgent navMeshAgent;
+
     bool isFollow = false;
 
 
@@ -27,11 +31,14 @@ public class Enemy : MonoBehaviour
         enemySource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     private void Update()
     {
-        FollowTarget();
+        //FollowTarget();
+
+        navMeshAgent.SetDestination(player.position);
     }
 
     private void FollowTarget()

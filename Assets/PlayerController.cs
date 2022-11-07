@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     }
     void Start()
     {
-        transform.position = new Vector3(52, 0, 55);
+        transform.position = new Vector3(37, 0, 15);
         transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
     }
 
