@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI PlayTime;
     [SerializeField] TextMeshProUGUI BestTime;
     [SerializeField] TextMeshProUGUI itemScore;
+    [SerializeField] TextMeshProUGUI GG;
 
     float EscapeTime = 0;
     float bestTime = 0;
@@ -76,7 +77,7 @@ public class GameManager : MonoBehaviour
     void GameOver()
     {
         isGameOver = true;
-
+        GG.gameObject.SetActive(true);
 
     }
 

@@ -21,8 +21,6 @@ public class MiniMap_JSP : MonoBehaviour
         CamPosition.y = transform.position.y;
         transform.position = CamPosition;
 
-
-
         transform.rotation = Quaternion.Euler(90, 0, -target.eulerAngles.y);
     }
 }
