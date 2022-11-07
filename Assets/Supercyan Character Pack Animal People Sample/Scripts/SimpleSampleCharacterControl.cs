@@ -17,15 +17,16 @@ namespace Supercyan.AnimalPeopleSample
             Direct
         }
 
-        [SerializeField] private float m_moveSpeed = 2;
-        [SerializeField] private float m_turnSpeed = 200;
-        [SerializeField] private float m_jumpForce = 4;
+        
 
         [SerializeField] private Animator m_animator = null;
         [SerializeField] private Rigidbody m_rigidBody = null;
 
         [SerializeField] private ControlMode m_controlMode = ControlMode.Direct;
 
+        [SerializeField] private float m_moveSpeed = 2;
+        [SerializeField] private float m_turnSpeed = 200;
+        [SerializeField] private float m_jumpForce = 4;
         private float m_currentV = 0;
         private float m_currentH = 0;
 
@@ -34,14 +35,14 @@ namespace Supercyan.AnimalPeopleSample
         private readonly float m_backwardsWalkScale = 0.16f;
         private readonly float m_backwardRunScale = 0.66f;
 
-        private bool m_wasGrounded;
         private Vector3 m_currentDirection = Vector3.zero;
 
         private float m_jumpTimeStamp = 0;
         private float m_minJumpInterval = 0.25f;
         private bool m_jumpInput = false;
-
+        private bool m_wasGrounded;
         private bool m_isGrounded;
+
 
         private List<Collider> m_collisions = new List<Collider>();
 
@@ -56,7 +57,7 @@ namespace Supercyan.AnimalPeopleSample
             ContactPoint[] contactPoints = collision.contacts;
             for (int i = 0; i < contactPoints.Length; i++)
             {
-                if (Vector3.Dot(contactPoints[i].normal, Vector3.up) > 0.5f)
+                if (Vector3.Dot(contactPoints[i].normal, Vector3.up) > 0.5f)//0~45eh 
                 {
                     if (!m_collisions.Contains(collision.collider))
                     {
@@ -196,7 +197,7 @@ namespace Supercyan.AnimalPeopleSample
 
                 m_animator.SetFloat("MoveSpeed", direction.magnitude);
             }
-
+            
             JumpingAndLanding();
         }
 
