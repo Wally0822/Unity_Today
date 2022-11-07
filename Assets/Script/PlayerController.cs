@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     float xInput = 0f;
     float zInput = 0f;
     float moveSpeed = 10f;
-    float turnSpeed = 2f;
+    float turnSpeed = 1f;
     float jumpForce = 5;
 
     bool canJump = false;

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.5015748, g: 0.27015787, b: 0.21001217, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -411,7 +411,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2337663477286280533}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &808259627
 SphereCollider:
@@ -1592,14 +1592,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2088956550}
-  m_LocalRotation: {x: 0.10985327, y: -0, z: -0, w: 0.9939478}
-  m_LocalPosition: {x: 0, y: 1.53, z: -1.8}
-  m_LocalScale: {x: 0.7692308, y: 0.7692307, z: 0.7692307}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2337663477286280533}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 12.614, y: 0, z: 0}
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2088956554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1607,11 +1607,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2088956550}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 818867c88e980f14a9bf4241f55798f0, type: 3}
+  m_Script: {fileID: 11500000, guid: c4597bd420ecc1a429ecaceef5a6920e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 2337663477286280533}
+  camPos: {x: 0, y: 1.5, z: -3}
+  camRot: {x: 0.043619387, y: 0, z: 0, w: 0.99904823}
+  interpolation: 5
 --- !u!1 &2104978922
 GameObject:
   m_ObjectHideFlags: 0
@@ -2478,7 +2482,6 @@ Transform:
   - {fileID: 4570126594184936406}
   - {fileID: 2748879459075072387}
   - {fileID: 7977511609735588224}
-  - {fileID: 2088956553}
   - {fileID: 808259626}
   m_Father: {fileID: 0}
   m_RootOrder: 5
