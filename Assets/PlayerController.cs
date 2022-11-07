@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
 
     bool canJump = false;
     bool isMoving = false;
+    bool Die = false;
 
     private void Awake()
     {
@@ -40,6 +41,11 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
+        if (GameManager.Inst.isGameOver)
+        {
+            //gameObject.SetActive(false);
+            return;
+        }
         xInput = Input.GetAxis("Horizontal");
         zInput = Input.GetAxis("Vertical");
 

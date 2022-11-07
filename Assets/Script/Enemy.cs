@@ -54,10 +54,15 @@ public class Enemy : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        isFollow = true;
+        if (other.tag == "Player")
+        {
+            GameManager.Inst.SendMessage("GameOver");
+            isFollow = true;
+            Attack();
 
-        Attack();
+            Debug.Log("Player!!!! got you ");
 
+        }
         //if (other.tag == "Player")
         //{
         //}
