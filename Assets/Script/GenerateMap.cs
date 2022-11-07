@@ -87,7 +87,11 @@ public class GenerateMap : MonoBehaviour
 
                 }
 
-
+                // 아이템 일정 갯수 이상 먹으면 탈출구가 생김
+                if (item) 
+                { 
+                
+                }
             }
         }
 
