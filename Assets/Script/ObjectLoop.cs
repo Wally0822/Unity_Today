@@ -4,36 +4,23 @@ using UnityEngine;
 
 public class ObjectLoop : MonoBehaviour
 {
-    float myPos;
-    float speed;
+
+    [SerializeField] float time;
+    [SerializeField] float speed;
+    [SerializeField] float ypos;
+    [SerializeField] float length;
     private void Awake()
     {
-        myPos = gameObject.transform.position.y;
-        speed = 1.2f;
-        //1.26
+        length = 0.5f;
     }
 
     void Update()
     {
-        MoveDown();
-        if (myPos <= 1.0f)
-        {
-            MoveUp();
-        }
-        else if (myPos >= 1.4f)
-        {
-            MoveDown();
-        }
+
+        time += Time.deltaTime * speed;
+        ypos = (Mathf.Sin(time) + 1) * length;
+
     }
 
-    private void MoveUp()
-    {
-        transform.position = transform.position + new Vector3(0, -1, 0) * speed * Time.deltaTime;
-        //transform.position = (transform.position * 1.2f) * speed * Time.deltaTime;
-    }
-    private void MoveDown()
-    {
-        transform.position = transform.position + new Vector3(0, -1, 0) * speed * Time.deltaTime;
-        //transform.position = (transform.position * -1.2f) * speed * Time.deltaTime;
-    }
+
 }
