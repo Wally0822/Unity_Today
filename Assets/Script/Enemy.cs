@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 
 public class Enemy : MonoBehaviour
 {
     [Header("추격 속도")]
     [SerializeField][Range(1f, 10f)] float moveSpeed = 5f;
-    [SerializeField][Range(10f, 50f)] float audioPlayRange = 20f;
+    [SerializeField][Range(10f, 50f)] float audioPlayRange = 10f;
 
     [Header("근접 거리")]
     [SerializeField][Range(1f, 10f)] float contactDistance = 1f;
@@ -18,6 +21,8 @@ public class Enemy : MonoBehaviour
     private AudioSource enemySource = null;
     public AudioClip workAudio = null;
 
+    NavMeshAgent navMeshAgent;
+
     bool isFollow = false;
 
 
@@ -27,11 +32,20 @@ public class Enemy : MonoBehaviour
         enemySource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     private void Update()
     {
-        FollowTarget();
+        //FollowTarget();
+
+        if (GameManager.Inst.isGameOver)
+            navMeshAgent.isStopped = true;
+
+        navMeshAgent.SetDestination(player.position);
+
+
+
     }
 
     private void FollowTarget()
@@ -47,20 +61,23 @@ public class Enemy : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        isFollow = true;
+        if (other.tag == "Player")
+        {
+            GameManager.Inst.SendMessage("GameOver");
+            isFollow = true;
+            animator.SetBool("Attacks", true);
+            enemySource.Stop();
+            //Debug.Log("Player!!!! got you ");
 
-        Attack();
+        }
 
-        //if (other.tag == "Player")
-        //{
-        //}
     }
 
 
     private void OnTriggerExit(Collider other)
     {
         isFollow = false;
-        enemySource.Stop();
+        enemySource.Play();
 
     }
 
@@ -70,7 +87,7 @@ public class Enemy : MonoBehaviour
         //Debug.Log("잡았다 !!");
         if (Vector3.Distance(player.transform.position, transform.position) <= audioPlayRange)
         {
-            Debug.Log(Vector3.Distance(player.transform.position, transform.position) <= audioPlayRange);
+            //Debug.Log(Vector3.Distance(player.transform.position, transform.position) <= audioPlayRange);
             enemySource.Play();
         }
         animator.SetBool("Attacks", true);
