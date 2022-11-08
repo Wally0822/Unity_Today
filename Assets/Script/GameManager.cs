@@ -68,9 +68,6 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("Main");
         }
 
-
-
-
     }
 
     void Escaped()
