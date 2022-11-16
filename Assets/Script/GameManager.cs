@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
     float bestTime = 1000f;
 
     public bool isGameOver = false;
+    public bool isPaused = false;
+
 
     public int totalItem;
     public int Gotcha;
@@ -65,7 +67,37 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene("Main");
+            SceneManager.LoadScene("Test_ChrisP");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+
+            if (!isPaused)
+            {
+                Debug.Log("escape!!!");
+
+                // turn onf DBPanel 
+                UIManager.Inst.DBpanel_OnNOff(true);
+
+                // and request UIManager to load user data
+                UIManager.Inst.Load_Data();
+
+                Time.timeScale = 0;
+
+                isPaused = true;
+            }
+
+            else
+            {
+                // turn onf DBPanel 
+                UIManager.Inst.DBpanel_OnNOff(false);
+
+                Time.timeScale = 1f;
+
+                isPaused = false;
+            }
+
         }
 
     }
@@ -86,13 +118,14 @@ public class GameManager : MonoBehaviour
         }
         win.gameObject.SetActive(true);
 
+        Invoke("SaveData", 3f);
+
     }
 
     void GameOver()
     {
         isGameOver = true;
         GG.gameObject.SetActive(true);
-
     }
 
     void Score()
@@ -106,6 +139,11 @@ public class GameManager : MonoBehaviour
             Escaped();
         }
 
+    }
+
+    void SaveData()
+    {
+        UIManager.Inst.SaveData();
     }
 
 }
