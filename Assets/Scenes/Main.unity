@@ -2175,6 +2175,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Generate Map
       objectReference: {fileID: 0}
+    - target: {fileID: 1596253115200141271, guid: 77454a9954f0e7a4691024e3dbebe2b6, type: 3}
+      propertyPath: cube
+      value: 
+      objectReference: {fileID: 9069115365609291303, guid: d1db61ed3840ffd4c91740cf7280717f, type: 3}
+    - target: {fileID: 1596253115200141271, guid: 77454a9954f0e7a4691024e3dbebe2b6, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 8402670969139712711, guid: 47e2ec970de68b247a3b28877d39f1da, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77454a9954f0e7a4691024e3dbebe2b6, type: 3}
 --- !u!4 &1650603381619252875
