@@ -41,16 +41,14 @@ public class GameManager : MonoBehaviour
     public bool isPaused = false;
 
 
-    public int totalItem;
-    public int Gotcha;
+    public int NumForTest = 1;
 
-    Cube Cube;
 
-    private void Awake()
-    {
-        Cube = FindObjectOfType<Cube>();
-    }
+    int totalItem;
+    public int TotalItem { get { return totalItem; } set { totalItem = value; } }
 
+    int gotcha;
+    public int GotArcon { get { return gotcha; } set { gotcha = value; } }
 
     // Update is called once per frame
     void Update()
@@ -62,7 +60,19 @@ public class GameManager : MonoBehaviour
 
         BestTime.text = (bestTime != 0) ? $"{(int)bestTime / 60} Min {(int)bestTime % 60} Sec" : "No one escaped!";
 
-        itemScore.text = $"{Gotcha} / {totalItem}";
+        itemScore.text = $"{gotcha} / {totalItem}";
+
+
+        // if player get enough arcon to escape 
+        if (gotcha > NumForTest)
+        {
+            // open exit buttocks  
+            foreach (GameObject exitpoint in GenerateMap.INST.ExitPoints)
+            {
+                exitpoint.SetActive(false);
+            }
+        }
+
 
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -97,16 +107,15 @@ public class GameManager : MonoBehaviour
 
                 isPaused = false;
             }
-
         }
-
     }
 
-    void Escaped()
+
+    public void Escaped()
     {
         isGameOver = true;
 
-        bestTime = PlayerPrefs.GetFloat("BestTime");
+        bestTime = PlayerPrefs.GetFloat("BestTime");    // need to edit code!!!!!   => get best time from server 
 
         if (EscapeTime < bestTime)
         {
@@ -130,20 +139,12 @@ public class GameManager : MonoBehaviour
 
     void Score()
     {
-        Gotcha++;
-
-        if (Gotcha >= 10)
-        {
-            Cube.SendMessage("End", SendMessageOptions.DontRequireReceiver);
-
-            Escaped();
-        }
-
+        gotcha++;
     }
 
     void SaveData()
     {
-        UIManager.Inst.SaveData();
+        UIManager.Inst.SaveData(EscapeTime, gotcha);
     }
 
 }

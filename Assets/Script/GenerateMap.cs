@@ -1,9 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GenerateMap : MonoBehaviour
 {
+    static GenerateMap instance = null;
+
+    #region SingleTon
+    public static GenerateMap INST
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<GenerateMap>();
+                if (instance == null)
+                {
+                    instance = new GenerateMap().AddComponent<GenerateMap>();
+                }
+
+            }
+            return instance;
+        }
+    }
+
+    #endregion
+
+
     Color color;
     Vector3 point;
     Vector3[] vertice;
@@ -21,13 +46,18 @@ public class GenerateMap : MonoBehaviour
 
     GameObject[] items;
 
+    List<GameObject> exitPoints;
+    public List<GameObject> ExitPoints { get { return exitPoints; } }
+
     int vtxIndex;
     float tx;
     float tz;
 
     private void Awake()
     {
-        Vector3 groundPos = new Vector3(80,0,80);
+        exitPoints = new List<GameObject>();
+
+        Vector3 groundPos = new Vector3(80, 0, 80);
         // 이미지 없으면 return
         if (MapImage == null) return;
         Instantiate(ground, groundPos, Quaternion.identity, this.transform.parent);
@@ -37,6 +67,7 @@ public class GenerateMap : MonoBehaviour
     {
 
         items = new GameObject[itemMax];
+
         for (int i = 0; i < items.Length; i++)
         {
             items[i] = item;
@@ -67,36 +98,48 @@ public class GenerateMap : MonoBehaviour
                 {
                     point = new Vector3(point.x, 0, point.z);
                     point.y = 0;
-                   Instantiate(cube, point, Quaternion.identity, this.transform);
+                    Instantiate(cube, point, Quaternion.identity, this.transform);
+
                 }
+
                 else if (point.y <= 0.7) // itemMin <= itemMax && 
                 {
+
+                    // instance exit point 
+                    point.y = MapImage.GetPixel(Mathf.FloorToInt(MapImage.height * tx), Mathf.FloorToInt(MapImage.width * tz)).b;
+                    if (point.y > 0.7)
+                    {
+                        point = new Vector3(point.x, 0, point.z);
+                        point.y = 0;
+                        GameObject tree = Instantiate(cube, point, Quaternion.identity, this.transform);
+
+                        // add script and tag 
+                        tree.gameObject.tag = "exit";
+
+                       exitPoints.Add(tree);
+                    }
+
+
                     if (itemMin <= itemMax)
                     {
+                        // instance item 
                         point.y = MapImage.GetPixel(Mathf.FloorToInt(MapImage.height * tx), Mathf.FloorToInt(MapImage.width * tz)).r;
-                        if (point.y > 0.7 && rnd== 0)
+                        if (point.y > 0.7 && rnd == 0)
                         {
                             point = new Vector3(point.x, 1, point.z);
                             point.y = 1.2f;
                             // 배열에 담은 아이템 하나씩 생성
-                            Instantiate(item, point, Quaternion.identity);
+                            Instantiate(item, point, Quaternion.identity, this.transform);
                             itemMin++;
                         }
-                        
-                    }
-                }
 
-                // 아이템 일정 갯수 이상 먹으면 탈출구가 생김
-                if (item) 
-                { 
-                
+                    }
+
                 }
             }
         }
 
-        GameManager.Inst.totalItem = itemMin;
-        
+        GameManager.Inst.TotalItem = itemMin;
     }
-
 
 }

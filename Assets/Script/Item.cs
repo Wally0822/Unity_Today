@@ -20,6 +20,7 @@ public class Item : MonoBehaviour
         {
             //GAMEMANAGER.INST.
             GameManager.Inst.SendMessage("Score", SendMessageOptions.DontRequireReceiver);
+
             this.gameObject.SetActive(false);
         }        
     }    

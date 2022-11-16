@@ -10,7 +10,7 @@ using UnityEditor.Experimental.GraphView;
 public class UserData
 {
     public string name;
-    public float bestTime;
+    public double bestRecord;
     public int score;
 }
 public class UIManager : MonoBehaviour
@@ -78,7 +78,7 @@ public class UIManager : MonoBehaviour
         bool result;
 
         if (curMyidx == idx)
-        {   
+        {
             // selected same user data and if it's actived, => false, deactived => true
             result = (scorePanel.activeSelf) ? false : true;
             scorePanel.SetActive(result);
@@ -87,12 +87,51 @@ public class UIManager : MonoBehaviour
             scorePanel.SetActive(true);
     }
 
-    public void SaveData()
+    public void SaveData(float EscapeTime, int Gotcha)
+    {
+        if (isProcessing) return;
+
+        UserData newData = new UserData();
+        newData.name = inputNameField.ToString();
+        newData.bestRecord = EscapeTime;
+        newData.score = Gotcha;
+
+        // convert json type data to string 
+        string jsonData = JsonUtility.ToJson(newData);
+        isProcessing = true;
+        StartCoroutine(processSave(jsonData));
+    }
+
+    IEnumerator processSave(string jsonData)
     {
 
+        string targetURL = ServerURL + ":" + Port + "/saveuserdata";
 
+        using (UnityWebRequest request = UnityWebRequest.Post(targetURL, jsonData))
+        {
+            // divide string data to byte 
+            byte[] jsonTosend = new System.Text.UTF8Encoding().GetBytes(jsonData);
+            request.uploadHandler = new UploadHandlerRaw(jsonTosend);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
 
+            yield return request.SendWebRequest();
+            if (request.result == UnityWebRequest.Result.ConnectionError)
+            {
+                UnityEngine.Debug.Log(request.error);
+            }
+
+            else
+            {
+                UnityEngine.Debug.Log(request.downloadHandler.text);
+            }
+        }
+
+        isProcessing = false;
     }
+
+
+
 
 
     public void Load_Data()
@@ -144,8 +183,12 @@ public class UIManager : MonoBehaviour
 
         scorePanel_OnNOff(idx);
 
+        int time = int.Parse(myUserData[idx].bestRecord.ToString());
+
+        Debug.Log($"{myUserData[idx].bestRecord.ToString()} 나의 시간!");
+
         RECname.text = $"Name : {myUserData[idx].name}";
-        RECBestTime.text = $"Best Time : {myUserData[idx].bestTime / 60}Min {myUserData[idx].bestTime % 60}Sec";        // 수정 필요! 
+        RECBestTime.text = $"Best Time : {time / 60}Min {time % 60}Sec";        // 수정 필요! 
         RECScore.text = $"Score : {myUserData[idx].score.ToString()}";
 
         curMyidx = idx; // 현재 선택한 데이터의 인덱스
