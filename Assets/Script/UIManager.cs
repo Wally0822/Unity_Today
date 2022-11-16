@@ -145,10 +145,9 @@ public class UIManager : MonoBehaviour
         scorePanel_OnNOff(idx);
 
         RECname.text = $"Name : {myUserData[idx].name}";
-        RECBestTime.text = $"Best Time : {myUserData[idx].bestTime.ToString()}";
+        RECBestTime.text = $"Best Time : {myUserData[idx].bestTime / 60}Min {myUserData[idx].bestTime % 60}Sec";        // 수정 필요! 
         RECScore.text = $"Score : {myUserData[idx].score.ToString()}";
 
         curMyidx = idx; // 현재 선택한 데이터의 인덱스
     }
-
 }
