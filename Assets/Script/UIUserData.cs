@@ -2,26 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class UIUserData : MonoBehaviour
+public class UIUserData : Selectable
 {
     [SerializeField] TextMeshProUGUI txtName = null;
 
-    // to remember my parent who call me, and my index number to find myself 
-    GameObject myParent = null;
     int idx = -1;
+
+    bool iamSelected = false;
+    bool iampressed = false;
 
     public void Data(GameObject parent, string name, int index)
     {
         txtName.text = name;
-        myParent = parent;
         idx = index;
     }
 
     // if clicked me, send my index to my parent 
     public void OnClick_me()
     {
+        // show selected data 
         UIManager.Inst.select_data(idx);
+
+        // player audio
+        AudioManager.Inst.UISound_Pressed();
+    }
+
+    void Update()
+    {
+        if (IsHighlighted())
+        {
+            if (iamSelected) return;
+
+            AudioManager.Inst.UISound_HighLighted();
+            iamSelected = true;
+        }
+
+        else
+            iamSelected = false;
     }
 
 

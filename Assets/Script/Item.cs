@@ -8,10 +8,6 @@ public class Item : MonoBehaviour
     // 아이템 점수
     int score = 1;
     
-    private void Awake()
-    {
-        
-    }
 
     // 메시지 보내기
     private void OnTriggerEnter(Collider other)
@@ -22,6 +18,8 @@ public class Item : MonoBehaviour
             GameManager.Inst.SendMessage("Score", SendMessageOptions.DontRequireReceiver);
 
             this.gameObject.SetActive(false);
+
+          
         }        
     }    
 }

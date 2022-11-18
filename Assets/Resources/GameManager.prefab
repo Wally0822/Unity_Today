@@ -51,5 +51,4 @@ MonoBehaviour:
   win: {fileID: 0}
   isGameOver: 0
   isPaused: 0
-  totalItem: 0
-  Gotcha: 0
+  NumForTest: 1

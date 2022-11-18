@@ -4,28 +4,35 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
 
     #region Singleton
-
-    static GameManager instance = null;
+    static GameObject instGMObj = null;
+    private static GameManager instance = null;
     public static GameManager Inst
     {
         get
         {
             if (instance == null)
             {
-                instance = FindObjectOfType<GameManager>();
+                instance = GameObject.FindObjectOfType<GameManager>();
+                Debug.Log("나는 나다~!");
                 if (instance == null)
-                    instance = new GameObject("GameManager").AddComponent<GameManager>();
+                {
+                    instance = new GameObject("GameManager", typeof(GameManager)).GetComponent<GameManager>();
+                    Debug.Log("나는 새로 태어났다~!");
+
+                }
             }
             return instance;
         }
     }
-
     #endregion
+
+
 
 
     [SerializeField] TextMeshProUGUI PlayTime;
@@ -34,12 +41,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI GG;
     [SerializeField] TextMeshProUGUI win;
 
+    Canvas myCanvas;
+
     float EscapeTime = 0f;
     float bestTime = 1000f;
 
     public bool isGameOver = false;
     public bool isPaused = false;
-
 
     public int NumForTest = 1;
 
@@ -49,6 +57,26 @@ public class GameManager : MonoBehaviour
 
     int gotcha;
     public int GotArcon { get { return gotcha; } set { gotcha = value; } }
+
+
+    private void Awake()
+    {
+
+        if (instGMObj == null)
+        {
+            instGMObj = this.gameObject;
+            DontDestroyOnLoad(gameObject);
+        }
+
+        else if (instGMObj != gameObject)
+        {
+            Destroy(gameObject);
+        }
+
+        myCanvas = FindObjectOfType<Canvas>();
+        DontDestroyOnLoad(myCanvas);
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -121,9 +149,6 @@ public class GameManager : MonoBehaviour
         {
             bestTime = EscapeTime;
             PlayerPrefs.SetFloat("BestTime", bestTime);
-
-            Debug.Log("you win!");
-
         }
         win.gameObject.SetActive(true);
 
@@ -144,7 +169,8 @@ public class GameManager : MonoBehaviour
 
     void SaveData()
     {
-        UIManager.Inst.SaveData(EscapeTime, gotcha);
+        UIManager.Inst.DBpanel_OnNOff(true);
+        UIManager.Inst.SavePanel(true, EscapeTime, GotArcon);
     }
 
 }

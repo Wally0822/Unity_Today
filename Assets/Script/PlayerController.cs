@@ -45,7 +45,9 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Item") myAudio.Play();
+        //if (other.tag == "Item") myAudio.Play();
+        if (other.tag == "Item")
+            AudioManager.Inst.PlayerSound_ItemGotcha();
     }
     void Update()
     {

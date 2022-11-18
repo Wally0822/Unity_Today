@@ -9,6 +9,7 @@ TagManager:
   - Block
   - cube
   - Enemy
+  - exit
   layers:
   - Default
   - TransparentFX

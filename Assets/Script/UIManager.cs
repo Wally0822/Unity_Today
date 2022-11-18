@@ -6,37 +6,37 @@ using TMPro;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
 using UnityEditor.Experimental.GraphView;
+using Unity.VisualScripting;
 
 public class UserData
 {
     public string name;
-    public double bestRecord;
+    public int escapetime;
     public int score;
 }
 public class UIManager : MonoBehaviour
 {
 
     #region Singleton
-    static UIManager instance = null;
-
+    static GameObject instGMObj = null;
+    private static UIManager instance = null;
     public static UIManager Inst
     {
         get
         {
-
             if (instance == null)
             {
-
-                instance = FindObjectOfType<UIManager>();
-
+                instance = GameObject.FindObjectOfType<UIManager>();
                 if (instance == null)
-                    instance = new GameObject("UIManager").AddComponent<UIManager>();
+                {
+                    instance = new GameObject("UIManager", typeof(UIManager)).GetComponent<UIManager>();
+                }
             }
             return instance;
         }
-
     }
     #endregion
+
 
     [SerializeField] GameObject DBpanel = null;
     [SerializeField] ScrollRect scrollView = null;
@@ -55,8 +55,25 @@ public class UIManager : MonoBehaviour
     public int Port = 0;
 
 
+    int escapeTime;
+    int gotcha;
+
     public List<UserData> myUserData = null;
     bool isProcessing = false;
+
+    private void Awake()
+    {
+        if (instGMObj == null)
+        {
+            instGMObj = this.gameObject;
+            DontDestroyOnLoad(gameObject);
+        }
+
+        else if (instGMObj != gameObject)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public void DBpanel_OnNOff(bool onNoff)
     {
@@ -73,6 +90,16 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    // if player escaped, active panel to save data 
+    public void SavePanel(bool onNoff, float EscapeTime, int Gotcha)
+    {
+        SaveButton.SetActive(onNoff);
+        inputNameField.SetActive(onNoff);
+        escapeTime = (int)EscapeTime;
+        gotcha = Gotcha;
+    }
+
+
     public void scorePanel_OnNOff(int idx)
     {
         bool result;
@@ -87,14 +114,16 @@ public class UIManager : MonoBehaviour
             scorePanel.SetActive(true);
     }
 
-    public void SaveData(float EscapeTime, int Gotcha)
+    public void SaveData()
     {
         if (isProcessing) return;
 
         UserData newData = new UserData();
-        newData.name = inputNameField.ToString();
-        newData.bestRecord = EscapeTime;
-        newData.score = Gotcha;
+        newData.name = inputNameField.GetComponent<TMP_InputField>().text;
+        newData.escapetime = escapeTime;
+        newData.score = gotcha;
+
+        Debug.Log($"{escapeTime}");
 
         // convert json type data to string 
         string jsonData = JsonUtility.ToJson(newData);
@@ -180,16 +209,13 @@ public class UIManager : MonoBehaviour
 
     public void select_data(int idx)
     {
-
         scorePanel_OnNOff(idx);
 
-        int time = int.Parse(myUserData[idx].bestRecord.ToString());
-
-        Debug.Log($"{myUserData[idx].bestRecord.ToString()} 나의 시간!");
+        int time = int.Parse(myUserData[idx].escapetime.ToString());
 
         RECname.text = $"Name : {myUserData[idx].name}";
-        RECBestTime.text = $"Best Time : {time / 60}Min {time % 60}Sec";        // 수정 필요! 
-        RECScore.text = $"Score : {myUserData[idx].score.ToString()}";
+        RECBestTime.text = $"Best Time : {time / 60}Min {time % 60}Sec";
+        RECScore.text = $"Score : {myUserData[idx].score}";
 
         curMyidx = idx; // 현재 선택한 데이터의 인덱스
     }

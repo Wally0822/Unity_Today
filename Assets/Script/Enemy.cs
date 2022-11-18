@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
     NavMeshAgent navMeshAgent;
 
     bool isFollow = false;
-
+    float distanceMeNPlayer;
 
     private void Awake()
     {
@@ -45,7 +45,9 @@ public class Enemy : MonoBehaviour
         navMeshAgent.SetDestination(player.position);
 
 
+        float direction = Vector3.Distance(player.position, this.transform.position);
 
+        enemySource.volume = 1/ direction;
     }
 
     private void FollowTarget()
