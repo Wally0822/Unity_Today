@@ -12,7 +12,7 @@
 
 ## 팀원 :
 본 프로젝트는 총 3명으로 구성되었습니다. <br>
-클라이언트 개발 : Santa, YoungBeanE, Wally0822
+- 클라이언트 개발 : Santa, YoungBeanE, Wally0822
 <br>
 
 ## 기간 : 
