@@ -8,8 +8,8 @@
 <br>
 
 ## 팀원 :
-본 프로젝트는 총 4명으로 구성되었습니다. <br>
-클라이언트 개발 : Santa, YoungBeanE, 김소라, Wally0822
+본 프로젝트는 총 3명으로 구성되었습니다. <br>
+클라이언트 개발 : Santa, YoungBeanE, Wally0822
 <br>
 
 ## 기간 : 
